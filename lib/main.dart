@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:get/get.dart';
 import 'package:onflare/items/program_card.dart';
 import 'package:onflare/library/custom_text.dart';
+import 'package:onflare/test.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: ChannelList(),
@@ -273,6 +275,10 @@ class ChannelListState extends State<ChannelList> {
                 ),
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: () => Get.to(FavoritePage()),
+            child: Text('이동'),
           ),
         ],
       ),

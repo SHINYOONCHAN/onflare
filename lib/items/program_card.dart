@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:onflare/controllers/Item_controller.dart';
 
-class ResponsiveCard extends StatelessWidget {
+class ResponsiveCard extends StatefulWidget {
   final String imageUrl;
   final String programTitle;
 
@@ -10,6 +12,13 @@ class ResponsiveCard extends StatelessWidget {
     required this.imageUrl,
     required this.programTitle,
   });
+
+  @override
+  FavoritePageState createState() => FavoritePageState();
+}
+
+class FavoritePageState extends State<ResponsiveCard> {
+  final FavoriteController favoriteController = Get.put(FavoriteController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +42,7 @@ class ResponsiveCard extends StatelessWidget {
               height: mq.height * 0.21,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(imageUrl),
+                  image: NetworkImage(widget.imageUrl),
                   fit: BoxFit.fill,
                 ),
                 color: Colors.black.withOpacity(0.05),
@@ -105,7 +114,7 @@ class ResponsiveCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          programTitle,
+                          widget.programTitle,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -114,10 +123,23 @@ class ResponsiveCard extends StatelessWidget {
                             height: 1.6,
                           ),
                         ),
-                        SvgPicture.asset(
-                          'assets/images/alram.svg',
-                          width: 20,
-                        ),
+                        Obx(() {
+                          bool isFavorite = favoriteController.favorites
+                              .contains(widget.programTitle);
+                          return GestureDetector(
+                            onTap: () {
+                              favoriteController
+                                  .toggleFavorite(widget.programTitle);
+                            },
+                            child: SvgPicture.asset(
+                              isFavorite
+                                  ? 'assets/images/bell.svg'
+                                  : 'assets/images/unbell.svg',
+                              width: 20,
+                              color: isFavorite ? Colors.red : null,
+                            ),
+                          );
+                        }),
                       ],
                     ),
                   ),
