@@ -5,11 +5,13 @@ import 'package:onflare/controllers/Item_controller.dart';
 
 class ResponsiveCard extends StatefulWidget {
   final String imageUrl;
+  final String programTime;
   final String programTitle;
 
   const ResponsiveCard({
     super.key,
     required this.imageUrl,
+    required this.programTime,
     required this.programTitle,
   });
 
@@ -114,11 +116,11 @@ class FavoritePageState extends State<ResponsiveCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.programTitle,
+                          widget.programTime,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'pretendard',
                             fontWeight: FontWeight.w400,
                             height: 1.6,
                           ),
@@ -147,15 +149,15 @@ class FavoritePageState extends State<ResponsiveCard> {
                       ],
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: double.infinity,
-                    height: 22,
+                    height: 28,
                     child: Text(
-                      'View Details',
-                      style: TextStyle(
+                      widget.programTitle,
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'pretendard',
                         fontWeight: FontWeight.w500,
                         height: 2.0,
                       ),
