@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 //import 'package:onflare/myhotel.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:carousel_slider/carousel_slider.dart';
@@ -60,10 +61,8 @@ class ChannelListState extends State<ChannelList> {
     super.initState();
     tzdata.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Seoul'));
-
     date = tz.TZDateTime.from(now, tz.local);
-
-    currentPage = startingPageIndex = date.day - 4;
+    currentPage = startingPageIndex = date.day - 5;
     daysInMonthList = generateDaysInMonthList();
   }
 
@@ -85,7 +84,7 @@ class ChannelListState extends State<ChannelList> {
     final mq = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -181,7 +180,7 @@ class ChannelListState extends State<ChannelList> {
                   height: 40,
                   child: CarouselSlider(
                     options: CarouselOptions(
-                      viewportFraction: 0.4,
+                      viewportFraction: 0.3,
                       initialPage: startingPageIndex,
                       onPageChanged: (index, reason) {
                         setState(() {
@@ -199,9 +198,12 @@ class ChannelListState extends State<ChannelList> {
                                 Text(
                                   "${item.toString()}일",
                                   style: TextStyle(
-                                      fontSize:
-                                          item == currentPage + 4 ? 20.0 : 16.0,
-                                      fontWeight: item == currentPage + 4
+                                      fontSize: item ==
+                                              currentPage + startingPageIndex
+                                          ? 20.0
+                                          : 16.0,
+                                      fontWeight: item ==
+                                              currentPage + startingPageIndex
                                           ? FontWeight.w600
                                           : FontWeight.normal),
                                 ),
@@ -254,10 +256,24 @@ class ChannelListState extends State<ChannelList> {
             ],
           ),
           const SizedBox(height: 12),
-          // MyHotel(
-          //   imagePath: 'assets/images/h1.png',
-          //   channelName: '네트워크 특선 세상 다반사',
-          // ),
+          const Row(
+            children: [
+              Expanded(
+                child: ResponsiveCard(
+                  imageUrl:
+                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                  programTitle: 'Program 1',
+                ),
+              ),
+              Expanded(
+                child: ResponsiveCard(
+                  imageUrl:
+                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                  programTitle: 'Program 2',
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -276,6 +292,99 @@ class ChannelListState extends State<ChannelList> {
           text: channelName,
           isSelected: channelName == selectedChannel,
           fontSize: channelName == selectedChannel ? 20 : 18,
+        ),
+      ),
+    );
+  }
+}
+
+class ResponsiveCard extends StatelessWidget {
+  final String imageUrl;
+  final String programTitle;
+
+  const ResponsiveCard({
+    super.key,
+    required this.imageUrl,
+    required this.programTitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context).size;
+
+    return Container(
+      width: double.infinity,
+      constraints: const BoxConstraints(minWidth: 0, maxWidth: 400),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: 1,
+            color: Colors.black.withOpacity(0.1),
+          ),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: mq.height * 0.21,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.fill,
+                ),
+                color: Colors.black.withOpacity(0.05),
+              ),
+            ),
+            Container(
+              height: 66,
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 22,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          programTitle,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                            height: 1.6,
+                          ),
+                        ),
+                        SvgPicture.asset(
+                          'assets/images/alram.svg',
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 22,
+                    child: Text(
+                      'View Details',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500,
+                        height: 2.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
