@@ -27,14 +27,10 @@ class FavoritePageState extends State<ResponsiveCard> {
     final mq = MediaQuery.of(context).size;
 
     return Container(
-      width: double.infinity,
+      width: mq.width * .43,
       constraints: const BoxConstraints(minWidth: 0, maxWidth: 400),
       child: Card(
         shape: RoundedRectangleBorder(
-          side: BorderSide(
-            width: 1,
-            color: Colors.black.withOpacity(0.1),
-          ),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Column(
@@ -47,6 +43,7 @@ class FavoritePageState extends State<ResponsiveCard> {
                   image: NetworkImage(widget.imageUrl),
                   fit: BoxFit.fill,
                 ),
+                borderRadius: BorderRadius.circular(6),
                 color: Colors.black.withOpacity(0.05),
               ),
               child: Row(
@@ -54,12 +51,9 @@ class FavoritePageState extends State<ResponsiveCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: mq.width * .409,
                     height: mq.height * .03,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.06),
-                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
