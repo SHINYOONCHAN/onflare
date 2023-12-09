@@ -90,7 +90,7 @@ class ChannelListState extends State<ChannelList> {
     final mq = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
