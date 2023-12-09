@@ -268,19 +268,19 @@ class ChannelListState extends State<ChannelList> {
               children: [
                 ResponsiveCard(
                   imageUrl:
-                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                      "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
                   programTime: '13:00',
                   programTitle: 'KBS NEWS',
                 ),
                 ResponsiveCard(
                   imageUrl:
-                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                      "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
                   programTime: '13:50',
                   programTitle: 'KBS NEWS2',
                 ),
                 ResponsiveCard(
                   imageUrl:
-                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                      "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
                   programTime: '14:30',
                   programTitle: 'KBS NEWS3',
                 ),

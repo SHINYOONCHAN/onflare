@@ -43,7 +43,8 @@ class FavoritePageState extends State<ResponsiveCard> {
                   image: NetworkImage(widget.imageUrl),
                   fit: BoxFit.fill,
                 ),
-                borderRadius: BorderRadius.circular(6),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(6)),
                 color: Colors.black.withOpacity(0.05),
               ),
               child: Row(
@@ -81,9 +82,9 @@ class FavoritePageState extends State<ResponsiveCard> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 12,
-                                  fontFamily: 'Roboto',
+                                  fontFamily: 'pretendard',
                                   fontWeight: FontWeight.w500,
-                                  height: 0.11,
+                                  height: 1.2,
                                 ),
                               ),
                             ],
