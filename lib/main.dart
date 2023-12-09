@@ -175,47 +175,44 @@ class ChannelListState extends State<ChannelList> {
                   ),
                 ),
               ),
-              const SizedBox(width: 30),
-              Flexible(
-                child: Column(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        viewportFraction: 0.4,
-                        initialPage: startingPageIndex,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentPage = index;
-                          });
-                        },
-                      ),
-                      items: daysInMonthList
-                          .map(
-                            (item) => Container(
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "${item.toString()}일",
-                                    style: TextStyle(
-                                        fontSize: item == currentPage + 4
-                                            ? 20.0
-                                            : 16.0,
-                                        fontWeight: item == currentPage + 4
-                                            ? FontWeight.w600
-                                            : FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                          .toList(),
+              const SizedBox(width: 8),
+              Expanded(
+                child: SizedBox(
+                  height: 40,
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      viewportFraction: 0.4,
+                      initialPage: startingPageIndex,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentPage = index;
+                        });
+                      },
                     ),
-                    //Text("${daysInMonthList[currentPage].toString()}일"),
-                  ],
+                    items: daysInMonthList
+                        .map(
+                          (item) => Container(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${item.toString()}일",
+                                  style: TextStyle(
+                                      fontSize:
+                                          item == currentPage + 4 ? 20.0 : 16.0,
+                                      fontWeight: item == currentPage + 4
+                                          ? FontWeight.w600
+                                          : FontWeight.normal),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 25),
