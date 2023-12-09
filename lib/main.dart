@@ -17,9 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: false,
+      ),
+      home: const Scaffold(
         body: ChannelList(),
       ),
     );
@@ -258,25 +262,39 @@ class ChannelListState extends State<ChannelList> {
             ],
           ),
           const SizedBox(height: 12),
-          const Row(
-            children: [
-              Expanded(
-                child: ResponsiveCard(
-                  imageUrl:
-                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
-                  programTime: '13:00',
-                  programTitle: 'KBS NEWS',
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: mq.width * 0.43,
+                  child: const ResponsiveCard(
+                    imageUrl:
+                        "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                    programTime: '13:00',
+                    programTitle: 'KBS NEWS',
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ResponsiveCard(
-                  imageUrl:
-                      "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
-                  programTime: '13:50',
-                  programTitle: '특전세상',
+                SizedBox(
+                  width: mq.width * 0.43,
+                  child: const ResponsiveCard(
+                    imageUrl:
+                        "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                    programTime: '13:50',
+                    programTitle: 'KBS NEWS2',
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: mq.width * 0.43,
+                  child: const ResponsiveCard(
+                    imageUrl:
+                        "https://search.pstatic.net/common?type=n&size=640x360&quality=100&direct=true&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20221229_229%2FiGvNa_16722952765466IUix_JPEG%2F1672295276531.jpg",
+                    programTime: '14:30',
+                    programTitle: 'KBS NEWS3',
+                  ),
+                ),
+              ],
+            ),
           ),
           ElevatedButton(
             onPressed: () => Get.to(const FavoritePage()),

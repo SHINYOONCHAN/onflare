@@ -55,7 +55,7 @@ class FavoritePageState extends State<ResponsiveCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: mq.width * .449,
+                    width: mq.width * .409,
                     height: mq.height * .03,
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.06),
