@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:onflare/myhotel.dart';
+//import 'package:onflare/myhotel.dart';
+import 'package:timezone/data/latest.dart' as tzdata;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
@@ -36,6 +38,11 @@ class ChannelListState extends State<ChannelList> {
   Color black = const Color(0xFF111111);
   Color grey = const Color(0xFFEEEEEE);
   double swipeValue = 0.0;
+  late int currentPage;
+  late int startingPageIndex;
+  late List<int> daysInMonthList;
+  late DateTime now = DateTime.now();
+  late DateTime date;
 
   final List<String> items = [
     '서울/인천/경기',
@@ -51,7 +58,26 @@ class ChannelListState extends State<ChannelList> {
   @override
   void initState() {
     super.initState();
-    currentDate = DateTime.now();
+    tzdata.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Asia/Seoul'));
+
+    date = tz.TZDateTime.from(now, tz.local);
+
+    currentPage = startingPageIndex = date.day - 4;
+    daysInMonthList = generateDaysInMonthList();
+  }
+
+  List<int> generateDaysInMonthList() {
+    int daysInMonth = DateTime(date.year, date.month + 1, 0).day;
+    int currentDay = date.day;
+
+    int startDay = currentDay - 5;
+    int endDay = currentDay + 7;
+
+    startDay = startDay < 1 ? 1 : startDay;
+    endDay = endDay > daysInMonth ? daysInMonth : endDay;
+
+    return List.generate(endDay - startDay + 1, (index) => startDay + index);
   }
 
   @override
@@ -59,7 +85,7 @@ class ChannelListState extends State<ChannelList> {
     final mq = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 60.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -149,34 +175,50 @@ class ChannelListState extends State<ChannelList> {
                   ),
                 ),
               ),
-              SizedBox(width: 30),
+              const SizedBox(width: 30),
               Flexible(
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                      height: 40.0, initialPage: 0, viewportFraction: 0.32),
-                  items: [
-                    currentDate.subtract(Duration(days: 1)),
-                    currentDate,
-                    currentDate.add(Duration(days: 1)),
-                  ].map((DateTime date) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: 180,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Text(
-                            '${date.day}일',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
+                child: Column(
+                  children: [
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        viewportFraction: 0.4,
+                        initialPage: startingPageIndex,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentPage = index;
+                          });
+                        },
+                      ),
+                      items: daysInMonthList
+                          .map(
+                            (item) => Container(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "${item.toString()}일",
+                                    style: TextStyle(
+                                        fontSize: item == currentPage + 4
+                                            ? 20.0
+                                            : 16.0,
+                                        fontWeight: item == currentPage + 4
+                                            ? FontWeight.w600
+                                            : FontWeight.normal),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                    //Text("${daysInMonthList[currentPage].toString()}일"),
+                  ],
                 ),
-              ),
+              )
             ],
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -214,11 +256,11 @@ class ChannelListState extends State<ChannelList> {
               ),
             ],
           ),
-          SizedBox(height: 12),
-          MyHotel(
-            imagePath: 'assets/images/h1.png',
-            channelName: '네트워크 특선 세상 다반사',
-          ),
+          const SizedBox(height: 12),
+          // MyHotel(
+          //   imagePath: 'assets/images/h1.png',
+          //   channelName: '네트워크 특선 세상 다반사',
+          // ),
         ],
       ),
     );
