@@ -277,8 +277,8 @@ class ChannelListState extends State<ChannelList> {
             ],
           ),
           ElevatedButton(
-            onPressed: () => Get.to(FavoritePage()),
-            child: Text('이동'),
+            onPressed: () => Get.to(const FavoritePage()),
+            child: const Text('이동'),
           ),
         ],
       ),

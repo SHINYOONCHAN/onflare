@@ -30,11 +30,10 @@ class FavoritePageState extends State<FavoritePage> {
                   onTap: () {
                     favoriteController.toggleFavorite(itemTitle);
                   },
-                  child: SvgPicture.asset(
-                    'assets/images/bell.svg',
-                    width: 20,
-                    color: Colors.red,
-                  ),
+                  child: SvgPicture.asset('assets/images/bell.svg',
+                      width: 20,
+                      colorFilter:
+                          const ColorFilter.mode(Colors.red, BlendMode.srcIn)),
                 ));
           },
         );

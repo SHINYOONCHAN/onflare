@@ -132,12 +132,16 @@ class FavoritePageState extends State<ResponsiveCard> {
                                   .toggleFavorite(widget.programTitle);
                             },
                             child: SvgPicture.asset(
-                              isFavorite
-                                  ? 'assets/images/bell.svg'
-                                  : 'assets/images/unbell.svg',
-                              width: 20,
-                              color: isFavorite ? Colors.red : null,
-                            ),
+                                isFavorite
+                                    ? 'assets/images/bell.svg'
+                                    : 'assets/images/unbell.svg',
+                                width: 20,
+                                colorFilter: isFavorite
+                                    ? const ColorFilter.mode(
+                                        Colors.red, BlendMode.srcIn)
+                                    : null
+                                //color: isFavorite ? Colors.red : null,
+                                ),
                           );
                         }),
                       ],
