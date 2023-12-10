@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:onflare/items/program_card.dart';
 import 'package:onflare/library/custom_text.dart';
@@ -233,9 +234,9 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () => Get.to(const FavoritePage()),
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '전체보기',
                                     style: TextStyle(
                                       fontFamily: 'Pretendard',
@@ -245,10 +246,14 @@ class HomeScreenState extends State<HomeScreen> {
                                       letterSpacing: -0.025,
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.keyboard_arrow_right_rounded,
-                                    size: 24,
-                                    color: Color(0xFF585858),
+                                  const SizedBox(width: 4),
+                                  SvgPicture.asset(
+                                    width: 8,
+                                    'assets/images/arrow_right.svg',
+                                    colorFilter: const ColorFilter.mode(
+                                      Color(0xFF585858),
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -318,9 +323,9 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () => Get.to(const FavoritePage()),
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '전체보기',
                                     style: TextStyle(
                                       fontFamily: 'Pretendard',
@@ -330,10 +335,14 @@ class HomeScreenState extends State<HomeScreen> {
                                       letterSpacing: -0.025,
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.keyboard_arrow_right_rounded,
-                                    size: 24,
-                                    color: Color(0xFF585858),
+                                  const SizedBox(width: 4),
+                                  SvgPicture.asset(
+                                    width: 8,
+                                    'assets/images/arrow_right.svg',
+                                    colorFilter: const ColorFilter.mode(
+                                      Color(0xFF585858),
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -403,9 +412,9 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () => Get.to(const FavoritePage()),
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '전체보기',
                                     style: TextStyle(
                                       fontFamily: 'Pretendard',
@@ -415,10 +424,14 @@ class HomeScreenState extends State<HomeScreen> {
                                       letterSpacing: -0.025,
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.keyboard_arrow_right_rounded,
-                                    size: 24,
-                                    color: Color(0xFF585858),
+                                  const SizedBox(width: 4),
+                                  SvgPicture.asset(
+                                    width: 8,
+                                    'assets/images/arrow_right.svg',
+                                    colorFilter: const ColorFilter.mode(
+                                      Color(0xFF585858),
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ],
                               ),
