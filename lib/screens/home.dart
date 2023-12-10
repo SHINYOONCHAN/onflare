@@ -70,409 +70,435 @@ class HomeScreenState extends State<HomeScreen> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 12.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      buildChannelItem('지상파'),
-                      buildChannelItem('종합편성'),
-                      buildChannelItem('케이블'),
-                      buildChannelItem('스카이라이프'),
-                      buildChannelItem('해외위성'),
-                      buildChannelItem('라디오'),
-                    ],
-                  ),
-                ],
+      child: CustomScrollView(
+        slivers: [
+          SliverPersistentHeader(
+            delegate: _SliverAppBarDelegate(
+              Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          buildChannelItem('지상파'),
+                          buildChannelItem('종합편성'),
+                          buildChannelItem('케이블'),
+                          buildChannelItem('스카이라이프'),
+                          buildChannelItem('해외위성'),
+                          buildChannelItem('라디오'),
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      height: 1,
+                      color: Color(0xFFDDDDDD),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const Divider(thickness: 1, height: 1, color: Color(0xFFDDDDDD)),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    items: items
-                        .map(
-                          (String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: TextStyle(
-                                  fontFamily: 'Pretendard',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  color: black,
-                                  letterSpacing: -0.025,
-                                  height: 1.2),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    value: selectedLocation,
-                    onChanged: (String? value) {
-                      setState(() {
-                        selectedLocation = value!;
-                      });
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: 50,
-                      width: mq.width * 0.46,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: grey,
-                      ),
-                    ),
-                    iconStyleData: IconStyleData(
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                      ),
-                      iconSize: 24,
-                      iconEnabledColor: black,
-                      iconDisabledColor: black,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: 400,
-                      width: mq.width * 0.46,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: grey,
-                      ),
-                      offset: const Offset(0, 0),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: MaterialStateProperty.all<double>(6),
-                        thumbVisibility: MaterialStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.only(left: 14, right: 14),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: SizedBox(
-                    height: 40,
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        viewportFraction: 0.3,
-                        initialPage: startingPageIndex,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentPage = index;
-                          });
-                        },
-                      ),
-                      items: daysInMonthList
-                          .map(
-                            (item) => Container(
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "${item.toString()}일",
-                                    style: TextStyle(
-                                        fontSize: item ==
-                                                currentPage + startingPageIndex
-                                            ? 20.0
-                                            : 16.0,
-                                        fontWeight: item ==
-                                                currentPage + startingPageIndex
-                                            ? FontWeight.w600
-                                            : FontWeight.normal),
+            pinned: true,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: true,
+                            items: items
+                                .map(
+                                  (String item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontFamily: 'Pretendard',
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
+                                          color: black,
+                                          letterSpacing: -0.025,
+                                          height: 1.2),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                ],
+                                )
+                                .toList(),
+                            value: selectedLocation,
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedLocation = value!;
+                              });
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              height: 50,
+                              width: mq.width * 0.46,
+                              padding:
+                                  const EdgeInsets.only(left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: grey,
                               ),
                             ),
-                          )
-                          .toList(),
+                            iconStyleData: IconStyleData(
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                              ),
+                              iconSize: 24,
+                              iconEnabledColor: black,
+                              iconDisabledColor: black,
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: 400,
+                              width: mq.width * 0.46,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: grey,
+                              ),
+                              offset: const Offset(0, 0),
+                              scrollbarTheme: ScrollbarThemeData(
+                                radius: const Radius.circular(40),
+                                thickness: MaterialStateProperty.all<double>(6),
+                                thumbVisibility:
+                                    MaterialStateProperty.all<bool>(true),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                              padding: EdgeInsets.only(left: 14, right: 14),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: SizedBox(
+                            height: 40,
+                            child: CarouselSlider(
+                              options: CarouselOptions(
+                                viewportFraction: 0.3,
+                                initialPage: startingPageIndex,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    currentPage = index;
+                                  });
+                                },
+                              ),
+                              items: daysInMonthList
+                                  .map(
+                                    (item) => Container(
+                                      alignment: Alignment.center,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "${item.toString()}일",
+                                            style: TextStyle(
+                                                fontSize: item ==
+                                                        currentPage +
+                                                            startingPageIndex
+                                                    ? 20.0
+                                                    : 16.0,
+                                                fontWeight: item ==
+                                                        currentPage +
+                                                            startingPageIndex
+                                                    ? FontWeight.w600
+                                                    : FontWeight.normal),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'KBS1',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: -0.025,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Get.to(const FavoritePage()),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            '전체보기',
+                                            style: TextStyle(
+                                              fontFamily: 'Pretendard',
+                                              color: Color(0xFF585858),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              letterSpacing: -0.025,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 4),
+                                          SvgPicture.asset(
+                                            width: 8,
+                                            'assets/images/arrow_right.svg',
+                                            colorFilter: const ColorFilter.mode(
+                                              Color(0xFF585858),
+                                              BlendMode.srcIn,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
+                            programTime: '13:00',
+                            programTitle: 'KBS NEWS',
+                          ),
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
+                            programTime: '13:50',
+                            programTitle: 'KBS NEWS2',
+                          ),
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
+                            programTime: '14:30',
+                            programTitle: 'KBS NEWS3',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'KBS2',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: -0.025,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Get.to(const FavoritePage()),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            '전체보기',
+                                            style: TextStyle(
+                                              fontFamily: 'Pretendard',
+                                              color: Color(0xFF585858),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              letterSpacing: -0.025,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 4),
+                                          SvgPicture.asset(
+                                            width: 8,
+                                            'assets/images/arrow_right.svg',
+                                            colorFilter: const ColorFilter.mode(
+                                              Color(0xFF585858),
+                                              BlendMode.srcIn,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
+                            programTime: '13:00',
+                            programTitle: 'KBS2 NEWS',
+                          ),
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
+                            programTime: '13:50',
+                            programTitle: 'KBS2 NEWS2',
+                          ),
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
+                            programTime: '14:30',
+                            programTitle: 'KBS2 NEWS3',
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'MBC',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: -0.025,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => Get.to(const FavoritePage()),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            '전체보기',
+                                            style: TextStyle(
+                                              fontFamily: 'Pretendard',
+                                              color: Color(0xFF585858),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              letterSpacing: -0.025,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 4),
+                                          SvgPicture.asset(
+                                            width: 8,
+                                            'assets/images/arrow_right.svg',
+                                            colorFilter: const ColorFilter.mode(
+                                              Color(0xFF585858),
+                                              BlendMode.srcIn,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
+                            programTime: '13:00',
+                            programTitle: 'MBC NEWS',
+                          ),
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
+                            programTime: '13:50',
+                            programTitle: 'MBC NEWS2',
+                          ),
+                          ResponsiveCard(
+                            imageUrl:
+                                "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
+                            programTime: '14:30',
+                            programTitle: 'MBC NEWS3',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              height: 40,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'KBS1',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: -0.025,
-                                height: 1.2,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => Get.to(const FavoritePage()),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    '전체보기',
-                                    style: TextStyle(
-                                      fontFamily: 'Pretendard',
-                                      color: Color(0xFF585858),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      letterSpacing: -0.025,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  SvgPicture.asset(
-                                    width: 8,
-                                    'assets/images/arrow_right.svg',
-                                    colorFilter: const ColorFilter.mode(
-                                      Color(0xFF585858),
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
-                    programTime: '13:00',
-                    programTitle: 'KBS NEWS',
-                  ),
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
-                    programTime: '13:50',
-                    programTitle: 'KBS NEWS2',
-                  ),
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
-                    programTime: '14:30',
-                    programTitle: 'KBS NEWS3',
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              height: 40,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'KBS2',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: -0.025,
-                                height: 1.2,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => Get.to(const FavoritePage()),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    '전체보기',
-                                    style: TextStyle(
-                                      fontFamily: 'Pretendard',
-                                      color: Color(0xFF585858),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      letterSpacing: -0.025,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  SvgPicture.asset(
-                                    width: 8,
-                                    'assets/images/arrow_right.svg',
-                                    colorFilter: const ColorFilter.mode(
-                                      Color(0xFF585858),
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
-                    programTime: '13:00',
-                    programTitle: 'KBS2 NEWS',
-                  ),
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
-                    programTime: '13:50',
-                    programTitle: 'KBS2 NEWS2',
-                  ),
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
-                    programTime: '14:30',
-                    programTitle: 'KBS2 NEWS3',
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              height: 40,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'MBC',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: -0.025,
-                                height: 1.2,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => Get.to(const FavoritePage()),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    '전체보기',
-                                    style: TextStyle(
-                                      fontFamily: 'Pretendard',
-                                      color: Color(0xFF585858),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      letterSpacing: -0.025,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  SvgPicture.asset(
-                                    width: 8,
-                                    'assets/images/arrow_right.svg',
-                                    colorFilter: const ColorFilter.mode(
-                                      Color(0xFF585858),
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/premium-photo/abstract-digital-background-connecting-dots-and-lines_86390-4933.jpg?size=626&ext=jpg",
-                    programTime: '13:00',
-                    programTitle: 'MBC NEWS',
-                  ),
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/free-photo/rpa-concept-with-blurry-hand-touching-screen_23-2149311914.jpg?size=626&ext=jpg",
-                    programTime: '13:50',
-                    programTitle: 'MBC NEWS2',
-                  ),
-                  ResponsiveCard(
-                    imageUrl:
-                        "https://img.freepik.com/premium-photo/man-in-the-dark-with-luminous-glasses_324531-800.jpg?size=626&ext=jpg",
-                    programTime: '14:30',
-                    programTitle: 'MBC NEWS3',
-                  ),
-                ],
-              ),
-            ),
-            //Get.to(const FavoritePage())
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -495,5 +521,28 @@ class HomeScreenState extends State<HomeScreen> {
                 : FontWeight.w400),
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget _widget;
+
+  _SliverAppBarDelegate(this._widget);
+
+  @override
+  double get minExtent => 60;
+
+  @override
+  double get maxExtent => 60;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return _widget;
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }
