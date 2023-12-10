@@ -4,12 +4,14 @@ class CustomUnderlineText extends StatelessWidget {
   final String text;
   final bool isSelected;
   final double fontSize;
+  final FontWeight fontWeight;
 
   const CustomUnderlineText({
     Key? key,
     required this.text,
     required this.isSelected,
     required this.fontSize,
+    required this.fontWeight,
   }) : super(key: key);
 
   @override
@@ -19,9 +21,9 @@ class CustomUnderlineText extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: fontSize,
-          color: isSelected ? Colors.black : Colors.black,
-        ),
+            fontSize: fontSize,
+            color: isSelected ? Colors.black : Colors.black,
+            fontWeight: fontWeight),
       ),
     );
   }

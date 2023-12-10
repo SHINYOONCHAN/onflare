@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:onflare/controller/Item_controller.dart';
+import 'package:onflare/controller/item_controller.dart';
 
 class ResponsiveCard extends StatefulWidget {
   final String imageUrl;

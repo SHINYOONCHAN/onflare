@@ -288,10 +288,12 @@ class HomeScreenState extends State<HomeScreen> {
           });
         },
         child: CustomUnderlineText(
-          text: channelName,
-          isSelected: channelName == selectedChannel,
-          fontSize: channelName == selectedChannel ? 20 : 18,
-        ),
+            text: channelName,
+            isSelected: channelName == selectedChannel,
+            fontSize: channelName == selectedChannel ? 20 : 18,
+            fontWeight: channelName == selectedChannel
+                ? FontWeight.w600
+                : FontWeight.w400),
       ),
     );
   }
