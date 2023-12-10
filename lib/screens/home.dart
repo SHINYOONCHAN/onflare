@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:get/get.dart';
@@ -241,6 +242,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 12),
           const SingleChildScrollView(
+            dragStartBehavior: DragStartBehavior.start,
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
@@ -267,6 +269,8 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           ElevatedButton(
             onPressed: () => Get.to(const FavoritePage()),
+            style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.black)),
             child: const Text('이동'),
           ),
         ],

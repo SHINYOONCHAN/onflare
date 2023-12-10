@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:onflare/screens/home.dart';
 
 void main() async {
@@ -12,11 +13,14 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
       runApp(
-        MaterialApp(
+        GetMaterialApp(
           home: const Scaffold(
             backgroundColor: Colors.white,
             body: HomeScreen(),
           ),
+          builder: (context, child) {
+            return ScrollConfiguration(behavior: AppBehavior(), child: child!);
+          },
           theme: ThemeData(
             fontFamily: 'Pretendard',
             useMaterial3: false,
@@ -26,4 +30,12 @@ void main() async {
       );
     },
   );
+}
+
+class AppBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
+  }
 }
